@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Login</title>
+	<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./popup.css">
+  <link rel="stylesheet" href="./cores.css">
+  <style>
+    body {
+		margin: 0;
+		padding: 0;
+		font-family: Arial, sans-serif;
+		background: url('./img/Addo_CrocodileRanch_AddoLion_a06f04.jpg') no-repeat center center fixed;
+		background-size: cover;
+    }
+
+    h3 {
+		position: absolute;
+		top: 10vh;
+		right: 0;
+		padding-right: 16vw;
+		font-size: 3em;
+		color: black;
+		-webkit-text-stroke: 1px gray;
+		font-weight: bolder;
+		text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+		font-family: 'Bangers', cursive; /* Fonte estilo HQ */
+    }
+
+    .login-box {
+		width: 300px;
+		background: #f0f0f0;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+		padding: 10px;
+		position: absolute;
+		top: 25%;
+		left: 20vw;
+		transform: translate(-50%, -50%);
+		border-radius: 8px;
+    }
+
+    input[type="text"], input[type="password"] {
+		width: 96%;
+		padding: 5px;
+		margin: 5px 0;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+    }
+
+    input.invalid {
+		border: 2px solid red;
+		background: yellow;
+    }
+
+    .error-message {
+		color: darkorange;
+		font-size: 12px;
+		margin-left: 5px;
+    }
+
+    button {
+		width: 100%;
+		padding: 10px;
+		background: #004BFF;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		margin-top: 10px;
+    }
+
+    a {
+		display: block;
+		text-align: right;
+		margin-top: 10px;
+		color: #004BFF;
+		text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+	<h3>Rede Social de Exemplo</h3>
+
+	<div class="login-box" >
+		<h2>LOGIN</h2>
+		<input type="text" id="email" placeholder="e-Mail" />
+		<span id="email-error" class="error-message"></span>
+		<input type="password" id="senha" placeholder="Senha" />
+		<span id="senha-error" class="error-message"></span>
+		<input type="password" id="confirmarSenha" placeholder="Confirmar senha" style="display: none;" />
+		<span id="confirmar-senha-error" class="error-message"></span>
+		<button id="login-btn">LOGIN</button>
+		<button id="cadastro-btn">CADASTRO</button>
+		<a href="#">Esqueci a Senha!</a>
+	</div>
+
+	<script src="./popup.js" defer></script>
+	<script defer>
+		const loginBtn = document.getElementById('login-btn');
+		const cadastroBtn = document.getElementById('cadastro-btn');
+		const emailField = document.getElementById('email');
+		const senhaField = document.getElementById('senha');
+		const confirmarSenhaField = document.getElementById('confirmarSenha');
+
+		cadastroBtn.addEventListener('click', () => {
+			confirmarSenhaField.style.display = 'block';
+			emailField.focus();
+			loginBtn.textContent = 'CADASTRAR';
+			cadastroBtn.style.display = 'none';
+		});
+
+    loginBtn.addEventListener('click', () => {
+      let valid = true;
+
+      if (!emailField.value) {
+        showError(emailField, 'email-error', 'Preencha este campo!');
+        valid = false;
+      } else {
+        hideError(emailField, 'email-error');
+      }
+
+      if (!senhaField.value) {
+        showError(senhaField, 'senha-error', 'Preencha este campo!');
+        valid = false;
+      } else {
+        hideError(senhaField, 'senha-error');
+      }
+
+      if (loginBtn.textContent === 'CADASTRAR' && !confirmarSenhaField.value) {
+        showError(confirmarSenhaField, 'confirmar-senha-error', 'Preencha este campo!');
+        valid = false;
+      } else if (loginBtn.textContent === 'CADASTRAR') {
+        hideError(confirmarSenhaField, 'confirmar-senha-error');
+      }
+
+      if (loginBtn.textContent === 'CADASTRAR' && senhaField.value && confirmarSenhaField.value && senhaField.value !== confirmarSenhaField.value) {
+        showError(confirmarSenhaField, 'confirmar-senha-error', 'As senhas não coincidem!');
+        valid = false;
+      }
+
+      if (valid) {
+        openPopup('Sucesso', loginBtn.textContent === 'CADASTRAR' ? 'Cadastrado com sucesso!' : 'Login com sucesso!');
+      } else {
+        openPopup('Não foi possível continuar', 'Verifique os campos destacados e tente novamente.');
+      }
+    });
+
+    function showError(field, errorId, message) {
+      field.classList.add('invalid');
+      document.getElementById(errorId).textContent = message;
+    }
+
+    function hideError(field, errorId) {
+      field.classList.remove('invalid');
+      document.getElementById(errorId).textContent = '';
+    }
+  </script>
+</body>
+</html>

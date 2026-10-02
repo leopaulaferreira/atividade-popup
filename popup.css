@@ -1,0 +1,47 @@
+/* <script src="./js/popup.js" use="openPopup(titulo, mensagem);" ></script> ... function injectPopCSS(); */
+
+.popup-janela {
+	background-color: white;
+	display: none;
+	position: fixed;
+	top: 30vh;
+	left: 40vw;
+	transform: translate(-50%, -50%);
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius: 6pt;
+	z-index: 10000;
+}
+
+.popup-titulo {
+	color: white;
+	background-color: royalblue;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0px;
+	padding: 1px 0px 1px 6px;
+	border-bottom: 1px solid #ddd;
+	border-radius: 4pt;
+	font-family: Constantia, Candara, Cambria, Arial;
+}
+
+.popup-fechar {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 1.1em;
+	width: 1.5em;
+	padding: 0;
+	margin: 2px -0.1em;
+}
+
+.popup-fechar:hover { 
+	color: darkyellow;
+	/* background-color: transparent; */
+}
+.popup-texto { 
+	color: darkslategray;
+	/* Caso texto da pop-up precise de Características especiais */
+	
+}
